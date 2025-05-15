@@ -1,4 +1,17 @@
-pip install pygame
-git clone git clone git@github.com:LiamBindle/PyVESC.git
-pip install PyVESC/.
-https://drive.google.com/drive/folders/1JtdgW_hZ6BBdmR_KDopgMqQ6sDLgpraN
+# pip install pygame
+# git clone git clone git@github.com:LiamBindle/PyVESC.git
+# pip install PyVESC/.
+# https://drive.google.com/drive/folders/1JtdgW_hZ6BBdmR_KDopgMqQ6sDLgpraN
+
+# 1. Installe python3-venv si ce n’est pas encore fait
+sudo apt install python3-venv
+
+# 2. Crée et active l’environnement virtuel
+python3 -m venv vesc-env
+source vesc-env/bin/activate
+
+# 3. Mets pip à jour
+pip install --upgrade pip
+
+# 4. Installe les modules nécessaires
+pip install pyserial pygame git+https://github.com/LiamBindle/PyVESC.git

@@ -2,14 +2,15 @@ import sys
 import time
 import pygame
 import serial
+import serial
 from pyvesc.VESC import VESC
-from pyvesc.VESC.messages import SetDutyCycle, SetServoPosition, GetValues
+from pyvesc.VESC.messages import SetDutyCycle
 
 try:
     ser = serial.Serial("/dev/ttyACM0", baudrate=115200, timeout=0.1)
     vesc = VESC(ser)
-    vesc.set(SetDutyCycle(0.1))
-    print("Connection to VESC successful.")
+    vesc.set(SetDutyCycle(0.05))
+    print("VESC communication OK.")
 except Exception as e:
     print(f"VESC error: {e}")
 
