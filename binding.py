@@ -2,19 +2,20 @@ import sys
 import time
 import pygame
 import serial
-import serial
 from pyvesc.VESC import VESC
-from pyvesc.VESC.messages import SetDutyCycle
+from pyvesc.VESC.messages import SetDutyCycle, SetServoPosition
 
+# Connect to VESC
 try:
     ser = serial.Serial("/dev/ttyACM0", baudrate=115200, timeout=0.1)
     vesc = VESC(ser)
     vesc.set(SetDutyCycle(0.05))
-    print("VESC communication OK.")
+    print("VESC communication established.")
 except Exception as e:
-    print(f"VESC error: {e}")
+    print(f"[ERROR] Could not connect to VESC: {e}")
+    sys.exit(1)
 
-# Initialize pygame joystick
+# Initialize gamepad
 pygame.init()
 pygame.joystick.init()
 if pygame.joystick.get_count() == 0:
