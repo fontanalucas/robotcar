@@ -1,22 +1,24 @@
 import sys
 import time
 import pygame
-import serial
-
-# Force Python to use the local pyvesc directory
+import serial.tools.list_ports
 from pyvesc.VESC.VESC import VESC
 from pyvesc.VESC.messages.setters import SetDutyCycle, SetServoPosition
 
+# Lister les ports série disponibles
+print("Ports série disponibles :")
+ports = serial.tools.list_ports.comports()
+for port in ports:
+    print(port.device)
 
 # Connect to VESC
 try:
     vesc = VESC("/dev/ttyACM0")
-    vesc.set(SetDutyCycle(0.05))
+    vesc.set_duty_cycle(0.05)  # Utiliser set_duty_cycle directement
     print("VESC communication established.")
 except Exception as e:
     print(f"[ERROR] Could not connect to VESC: {e}")
     sys.exit(1)
-
 
 # Initialize gamepad
 pygame.init()
@@ -35,7 +37,7 @@ def send_speed(rt, lt):
     dec = (lt + 1) / 2
     duty = acc - dec
     try:
-        vesc.set(SetDutyCycle(duty))
+        vesc.set_duty_cycle(duty)  # Utiliser set_duty_cycle
         print(f"[VESC] Duty cycle = {duty:.2f}")
     except Exception as e:
         print(f"[ERROR] Failed to send duty cycle: {e}")
@@ -44,7 +46,7 @@ def send_speed(rt, lt):
 def set_direction(val):
     pos = (val + 1) / 2
     try:
-        vesc.set(SetServoPosition(pos))
+        vesc.set_servo(pos)  # Utiliser set_servo
         print(f"[SERVO] Position = {pos:.2f}")
     except Exception as e:
         print(f"[ERROR] Failed to send servo position: {e}")
@@ -67,3 +69,7 @@ try:
         time.sleep(0.01)
 except KeyboardInterrupt:
     print("Exiting on user interrupt.")
+finally:
+    # Arrêter le moteur à la sortie
+    vesc.set_duty_cycle(0)  # Utiliser set_duty_cycle
+    print("Motor stopped.")
