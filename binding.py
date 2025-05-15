@@ -1,12 +1,14 @@
 import sys
-sys.path.insert(0, "./pyvesc")
-
 import time
 import pygame
 import serial
-from VESC import VESC  # car dans pyvesc/VESC/VESC.py
-from pyvesc.messages import SetDutyCycle, SetServoPosition
 
+# Force Python to use the local pyvesc directory
+sys.path.insert(0, "./pyvesc")
+
+# Import from local version
+from VESC.VESC import VESC
+from VESC.messages.setters import SetDutyCycle, SetServoPosition
 
 # Connect to VESC
 try:
