@@ -1,29 +1,18 @@
 import sys
 import time
 import pygame
+import serial
 from pyvesc.VESC import VESC
 from pyvesc.VESC.messages import SetDutyCycle, SetServoPosition, GetValues
 
-def test_vesc_alive():
-    try:
-        vesc.write(GetValues())
-        response = vesc.read(GetValues)
-        return response is not None
-    except Exception:
-        return False
-
-# Connexion au VESC
 try:
-    vesc = VESC(serial_port="/dev/ttyACM0")
+    ser = serial.Serial("/dev/ttyACM0", baudrate=115200, timeout=0.1)
+    vesc = VESC(serial_port=ser)
     time.sleep(1)
-    if not test_vesc_alive():
-        print("[ERREUR] Le VESC ne répond pas.")
-        sys.exit(1)
 except Exception as e:
     print(f"[ERREUR] Impossible de se connecter au VESC : {e}")
     sys.exit(1)
 
-# Initialisation de la manette
 pygame.init()
 pygame.joystick.init()
 if pygame.joystick.get_count() == 0:
@@ -39,22 +28,16 @@ def send_speed(rt, lt):
     dec = (lt + 1) / 2
     duty = acc - dec
     try:
-        if test_vesc_alive():
-            vesc.set(SetDutyCycle(duty))
-            print(f"[VESC] Duty = {duty:.2f}")
-        else:
-            print("[VESC] Ignoré : pas de réponse")
+        vesc.set(SetDutyCycle(duty))
+        print(f"[VESC] Duty = {duty:.2f}")
     except Exception as e:
         print(f"[ERREUR] Duty : {e}")
 
 def set_direction(val):
     pos = (val + 1) / 2
     try:
-        if test_vesc_alive():
-            vesc.set(SetServoPosition(pos))
-            print(f"[SERVO] pos = {pos:.2f}")
-        else:
-            print("[SERVO] Ignoré : pas de réponse")
+        vesc.set(SetServoPosition(pos))
+        print(f"[SERVO] pos = {pos:.2f}")
     except Exception as e:
         print(f"[ERREUR] Servo : {e}")
 
