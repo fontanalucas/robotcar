@@ -5,14 +5,14 @@ import serial
 from pyvesc.VESC import VESC
 from pyvesc.VESC.messages import SetDutyCycle, SetServoPosition, GetValues
 
+# Ouvre le port série manuellement (solution propre)
 try:
-    # vesc = VESC(serial_port="/dev/ttyACM0", baudrate=115200)
-    vesc = VESC(serial_port="/dev/ttyACM0", baud=115200)
+    ser = serial.Serial("/dev/ttyACM0", baudrate=115200, timeout=0.1)
+    vesc = VESC(serial_port=ser)  # On donne le port déjà configuré
     time.sleep(1)
 except Exception as e:
     print(f"[ERREUR] Impossible de se connecter au VESC : {e}")
     sys.exit(1)
-
 
 pygame.init()
 pygame.joystick.init()
