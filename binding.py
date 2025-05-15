@@ -1,9 +1,12 @@
 import sys
+sys.path.insert(0, "./pyvesc")
+
 import time
 import pygame
 import serial
-from pyvesc.VESC import VESC
-from pyvesc.VESC.messages import SetDutyCycle, SetServoPosition
+from VESC import VESC  # car dans pyvesc/VESC/VESC.py
+from pyvesc.messages import SetDutyCycle, SetServoPosition
+
 
 # Connect to VESC
 try:
