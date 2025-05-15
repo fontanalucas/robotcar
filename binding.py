@@ -12,7 +12,7 @@ GPIO.setup(SERVO_PIN, GPIO.OUT)
 pwm_servo = GPIO.PWM(SERVO_PIN, PWM_FREQ)
 pwm_servo.start(7.5)
 try:
-    vesc = VESC(serial_port="/dev/ttyUSB0")
+    vesc = VESC(serial_port="/dev/ttyACM0")
 except Exception as e:
     print(f"[ERREUR] Impossible de se connecter au VESC : {e}")
     exit()
