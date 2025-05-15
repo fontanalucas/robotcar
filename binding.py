@@ -10,7 +10,7 @@ from pyvesc.VESC.messages.setters import SetDutyCycle, SetServoPosition
 
 # Connect to VESC
 try:
-    vesc = VESC(serial_port="/dev/ttyACM0")
+    vesc = VESC("/dev/ttyACM0")
     vesc.set(SetDutyCycle(0.05))
     print("VESC communication established.")
 except Exception as e:
