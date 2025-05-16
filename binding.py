@@ -77,6 +77,7 @@ try:
                     set_direction(event.value)
                 elif event.axis == 2:
                     lt_val = event.value
+                    send_speed(rt_val, lt_val)
                 elif event.axis == 5:
                     rt_val = event.value
                     send_speed(rt_val, lt_val)
