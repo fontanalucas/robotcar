@@ -44,16 +44,19 @@ print(f"Gamepad detected: {joystick.get_name()}")
 def send_speed(rt, lt):
     acc = (rt + 1) / 2
     dec = (lt + 1) / 2
+    if dec < 0.1:
+        dec = 0.0
+    if acc < 0.1:
+        acc = 0.0
     duty = acc - dec
-
-    # Limit duty cycle (30%)
     duty = max(min(duty, 0.3), -0.3)
-
+    print(f"acc: {acc:.2f}, dec: {dec:.2f}, duty: {duty:.2f}")
     try:
         vesc.set_duty_cycle(duty)
         print(f"[VESC] Duty cycle = {duty:.2f}")
     except Exception as e:
         print(f"[ERROR] Failed to send duty cycle: {e}")
+
 
 def set_direction(val):
     pos = (val + 1) / 2
