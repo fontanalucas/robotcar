@@ -48,6 +48,7 @@ def send_speed(rt, lt):
 
     # Limit duty cycle (30%)
     duty = max(min(duty, 0.3), -0.3)
+    print(f"duty : {duty}")
 
     try:
         vesc.set_duty_cycle(duty)
@@ -71,7 +72,7 @@ try:
         pygame.event.pump()
         for event in pygame.event.get():
             if event.type == pygame.JOYAXISMOTION:
-                print(f"Axis {event.axis} = {event.value:.2f}")
+                # print(f"Axis {event.axis} = {event.value:.2f}")
                 if event.axis == 0:
                     set_direction(event.value)
                 elif event.axis == 2:
