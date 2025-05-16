@@ -13,7 +13,7 @@ for port in ports:
 
 # Connect to VESC
 try:
-    vesc = VESC("/dev/ttyACM1")
+    vesc = VESC("/dev/ttyACM0")
     vesc.set_duty_cycle(0.05)  # Utiliser set_duty_cycle directement
     print("VESC communication established.")
 except Exception as e:
