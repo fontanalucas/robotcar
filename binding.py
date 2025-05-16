@@ -72,7 +72,7 @@ try:
         pygame.event.pump()
         for event in pygame.event.get():
             if event.type == pygame.JOYAXISMOTION:
-                # print(f"Axis {event.axis} = {event.value:.2f}")
+                print(f"Axis {event.axis} = {event.value:.2f}")
                 if event.axis == 0:
                     set_direction(event.value)
                 elif event.axis == 2:
