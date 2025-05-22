@@ -15,3 +15,16 @@ pip install --upgrade pip
 
 # 4. Installe les modules nécessaires
 pip install pyserial pygame git+https://github.com/LiamBindle/PyVESC.git
+
+
+#for d in /sys/bus/usb/devices/*/power/control; do
+#     echo on | sudo tee $d
+# done
+
+# Installe ce paquet :
+
+# sudo apt install joystick
+
+# Puis lance :
+
+# jstest /dev/input/js0
