@@ -1,10 +1,16 @@
+import pygame
+pygame.init()
+pygame.joystick.init()
 import sys
 import time
-import pygame
 import serial
 import serial.tools.list_ports
 from pyvesc.VESC.VESC import VESC
 from pyvesc.VESC.messages.setters import SetDutyCycle, SetServoPosition
+import os
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+
+
 
 # --------- Auto-detect VESC port ---------
 def find_vesc_port():
